@@ -19,7 +19,8 @@ const ProfileSchema = new mongoose.Schema({
         ref: "Posts"
     },
     profileImage: {
-        type: String
+        type: String,
+        default:null
     },
     vehicledetails: {
         type: ObjectId

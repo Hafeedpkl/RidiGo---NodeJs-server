@@ -25,8 +25,10 @@ const GroupSchema = new mongoose.Schema({
         ref: "Posts"
     },
     image: {
-        type: String,
-        default: null
+        type: String
+    },
+    messageUpdate: {
+        type: Date
     }
 }, { timestamps: true })
 

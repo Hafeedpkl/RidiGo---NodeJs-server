@@ -10,6 +10,7 @@ const cors = require('cors');
 const http = require('http').Server(app);
 
 const Messages = require('./models/Messages');
+const Group = require("./models/Groups");
 
 const corsOptions = {
     origin: '*',
@@ -21,7 +22,7 @@ app.use(cors(corsOptions));
 dotenv.config()
 
 const socketIO = require('socket.io')(http, {
-cors: {
+    cors: {
         origin: "*"
     }
 });
@@ -34,21 +35,20 @@ socketIO.on('connection', (socket) => {
 
     //sends the message to all the users on the server
     socket.on('message', async (data) => {
-        console.log(data);
         // socketIO.emit('messageResponse', data);
         //Adds the new user to the list of users
         users.push(data.name);
        
-        //Sends the list of   users to the client
+        //Sends the list of users to the client
         socketIO.emit('newUserResponse', users);
-        
 
         const saveMsg = new Messages({
             name: data.name,
             text: data.text,
             group: data.groupId
         });
-        await saveMsg.save().then(() => {
+        await saveMsg.save().then(async() => {
+            await Group.findByIdAndUpdate(data.groupId, { messageUpdate: new Date() })
             console.log("🐱‍🏍:Message saved in db");
         }).catch((err) => {
             console.log(err);
@@ -56,8 +56,6 @@ socketIO.on('connection', (socket) => {
     });
 
     socket.on('typing', (data) => socket.broadcast.emit('typingResponse', data));
-
-    
 
     socket.on('disconnect', () => {
         console.log('😪: A user disconnected');

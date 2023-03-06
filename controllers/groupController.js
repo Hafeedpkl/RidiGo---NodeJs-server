@@ -94,7 +94,6 @@ const image = async (req, res) => {
 }
 
 const newGroup = async (req, res) => {
-    console.log(req.body);
     const newgroup = new Group({
         admin: req.body.adminName,
         groupName: req.body.roomName,
@@ -109,8 +108,7 @@ const newGroup = async (req, res) => {
 }
 
 const getGroups = (req, res) => {
-    console.log(req.body)
-    Group.find().sort({ createdAt: -1 })
+    Group.find().sort({ messageUpdate: -1 })
         .then((groups) => res.json(groups))
         .catch((err) => res.json({ error: "could not get groups", err }));
 }
@@ -130,7 +128,6 @@ const getGroupsList = (req, res) => {
                     arrayOfGroups.push(groups[i])
                 }
             }
-            console.log(arrayOfGroups);
             res.json(arrayOfGroups)
         }
         )
@@ -191,6 +188,25 @@ const editGrpDp = async (req, res) => {
     }
 }
 
+const editGrpName = async (req, res) => {
+    try {
+        Group.findOneAndUpdate(
+            {
+                _id: req.body.id
+            },
+            {
+                $set: {
+                    groupName: req.body.grpName
+                }
+            }
+        )
+            .then((data) => res.json(data))
+            .catch((err) => res.json({ error: "could not edit grp name", err }));
+    } catch (err) {
+        res.status(500).json(err)
+    }
+}
+
 module.exports = {
     newGroup,
     getGroups,
@@ -200,5 +216,6 @@ module.exports = {
     editGrpDp,
     image,
     single,
-    getGroupsList
+    getGroupsList,
+    editGrpName
 }

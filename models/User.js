@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+    const mongoose = require("mongoose");
 
 const ObjectId = mongoose.Schema.Types.ObjectId;
 
@@ -19,8 +19,7 @@ const ProfileSchema = new mongoose.Schema({
         ref: "Posts"
     },
     profileImage: {
-        type: String,
-        default:null
+        type: String
     },
     vehicledetails: {
         type: ObjectId

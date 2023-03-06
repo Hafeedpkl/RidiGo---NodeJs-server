@@ -96,6 +96,7 @@ const image = async (req, res) => {
 
 const addNew = async (req, res) => {
     const user = await User.findOne({ uid: req.body.uid })
+    console.log(req.body);
     try {
         if (!user) {
             const newUser = new User(req.body);
@@ -164,6 +165,7 @@ const showJoinedEventsRides = async (req, res) => {
 }
 
 const editDp = async (req, res) => {
+    console.log(req.body);
     try {
         User.findOneAndUpdate(
             {

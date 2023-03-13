@@ -100,7 +100,8 @@ const postImages = async (req, res) => {
         image: req.file.path,
         group: req.body.details,
         eventType: req.body.event,
-        expirationDate: Date(req.body.registrationEndsOn)
+        title: req.body.title,
+        expirationDate: new Date(req.body.registrationEndsOn)
     });
 
     try {
@@ -111,7 +112,7 @@ const postImages = async (req, res) => {
                         rides: post._id
                     }
                 }).then(() => {
-                    console.log("worked");
+                    console.log("Ride added");
                 })
             } else {
                 Group.findOneAndUpdate({ _id: req.body.details }, {
@@ -119,11 +120,11 @@ const postImages = async (req, res) => {
                         events: post._id
                     }
                 }).then(() => {
-                    console.log("worked");
+                    console.log("Event Added");
                 })
             }
         })
-        res.json(pro);
+        res.json(post);
     } catch (err) {
         res.status(400).json({ error: "could not post product", err });
     }

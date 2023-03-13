@@ -25,7 +25,8 @@ const GroupSchema = new mongoose.Schema({
         ref: "Posts"
     },
     image: {
-        type: String
+        type: String,
+        default:"public\\Profile\\2023-03-13T10-28-30.114Zscaled_images (3).png"
     },
     messageUpdate: {
         type: Date

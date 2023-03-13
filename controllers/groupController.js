@@ -170,6 +170,7 @@ const messages = async (req, res) => {
 }
 
 const editGrpDp = async (req, res) => {
+    console.log(req.body);
     try {
         Group.findOneAndUpdate(
             {
@@ -189,6 +190,7 @@ const editGrpDp = async (req, res) => {
 }
 
 const editGrpName = async (req, res) => {
+    console.log(req.body);
     try {
         Group.findOneAndUpdate(
             {

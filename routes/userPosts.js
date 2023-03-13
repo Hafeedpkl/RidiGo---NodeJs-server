@@ -26,7 +26,7 @@ router.post("/savedItems", emailSanitizer, authenticate, savedItems);
 
 router.post("/removeSaved", emailSanitizer, authenticate, removeSaved);
 
-router.post("/remove", emailSanitizer, authenticate, remove);
+router.post("/remove", emailSanitizer, authenticate, remove);//remove user from post regMembers
 
 router.post("/removeAndAddInWishlist", emailSanitizer, authenticate, removeAndAddInWishlist);
 

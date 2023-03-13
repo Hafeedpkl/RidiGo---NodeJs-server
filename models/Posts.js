@@ -3,11 +3,14 @@ const mongoose = require("mongoose");
 const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const PostsSchema = new mongoose.Schema({
+    title:{
+        type:String
+    },
     description: {
         type: String
     },
     image: {
-        type: [String]
+        type: String
     },
     group: {
         type: ObjectId,

@@ -195,8 +195,18 @@ const removeAndAddInWishlist = async (req, res) => {
 
 const wishList = async (req, res) => {
     try {
-        await Profile.findOneAndUpdate({ email: req.body.email }, { $push: { wishList: req.body.id } })
-            .then((added) => res.json(added)).catch((err) => res.json({ error: "could not save item", err }));
+        const User = await Profile.findOne({ email: req.body.email });
+        let check = false;
+        console.log(User.wishList);
+        User.wishList.map(x => {
+            x == req.body.id ? check = true : console.log("Not");
+        })
+        if (check === false) {
+            await Profile.findOneAndUpdate({ email: req.body.email }, { $push: { wishList: req.body.id } })
+                .then((added) => res.json(added)).catch((err) => res.json({ error: "could not save item", err }));
+        } else {
+            res.status(400).json({ error: "Already exist"});
+        }
     } catch (err) {
         res.status(400).json({ error: "could not save items", err });
     }

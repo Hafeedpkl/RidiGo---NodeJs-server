@@ -8,7 +8,8 @@ const MapSchema = new mongoose.Schema({
     },
     title: {
         type: String,
-        require: true
+        require: true,
+        
     },
     description: {
         type: String,
@@ -25,7 +26,7 @@ const MapSchema = new mongoose.Schema({
     expireAt: {
         type: Date,
         default: Date.now,
-        index: { expires: '5m' },
+        index: { expires: '60m' },
     },
 }, { timestamps: true })
 
